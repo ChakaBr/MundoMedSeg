@@ -322,6 +322,12 @@
           "titulo": "CI Móvel",
           "formas": [
             [
+              55,
+              750,
+              235,
+              805
+            ],
+            [
               40,
               390,
               870,
@@ -362,16 +368,16 @@
           "titulo": "Encontros nacionais",
           "formas": [
             [
-              520,
-              120,
-              1075,
-              350
-            ],
-            [
               800,
               120,
               1115,
               170
+            ],
+            [
+              520,
+              120,
+              1075,
+              350
             ]
           ],
           "painel": "cultura-pertencimento/led-01-encontros-nacionais-em-equipe-1.png"

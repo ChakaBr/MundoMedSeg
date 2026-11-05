@@ -88,6 +88,8 @@ async function rodar({ app, janelas, pasta, log }) {
     }
     await foto('04-reconhecimento');
     confere('totem marca a area escolhida', (await js(totem, '__totem.estado().sel')) === 'reconhecimento');
+    const destaque = await js(totem, `(() => { const r = [...document.querySelectorAll('.area[data-id="reconhecimento"] rect')].map((x) => getComputedStyle(x).stroke); return { rotulo: r[0], resto: r.slice(1), legenda: !!document.getElementById('legenda') }; })()`);
+    confere('so o nome fica selecionado (resto da area sem destaque) e sem legenda', /255/.test(destaque.rotulo) && destaque.resto.every((v) => !/255/.test(v)) && !destaque.legenda, JSON.stringify(destaque));
     const cena = await js(painel, `(() => { const c = document.querySelector('.cartao').getBoundingClientRect(); return {cw: c.width, ww: innerWidth, ch: c.height, wh: innerHeight, fundo: document.querySelector('.fundo').style.background}; })()`);
     confere('cartao centralizado na tela do painel com fundo da cor da arte', Math.abs(cena.cw - cena.ww) < 3 && /gradient/.test(cena.fundo) && /#fe|#fd|#ff|rgb\(25[0-5]/.test(cena.fundo), JSON.stringify(cena));
 

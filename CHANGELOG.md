@@ -2,6 +2,15 @@
 
 Cada versão fica em `versoes/MundoMedSeg-vX.Y.Z/` (+ `.zip`), gerada por `npm run empacotar`.
 
+## v0.3.0 — 05/11/2026
+
+Ajustes pedidos depois de testar a v0.2.0.
+
+- **Zoom do totem volta ao da v0.1.0** (a maquete cresce até estourar e o ambiente emerge do ponto tocado; voltar faz o inverso), com a duração original de 1 s. Removidos rastro/vinheta/clarão e a "respiração" das cenas do totem.
+- **Seleção só no nome**: ao tocar num tema do submenu, apenas o nome (rótulo) fica realçado; o quadrado da área inteira não acende mais (o toque continua valendo na área toda). Rótulos de *CI Móvel* e *Encontros nacionais* corrigidos.
+- **Removida a legenda "No painel: …"** do totem.
+- Painel (TV vertical e animações em partes) inalterado.
+
 ## v0.2.0 — 05/11/2026
 
 Janelas livres, painel pensado para **TV 65" na vertical** e animações seguindo a referência.

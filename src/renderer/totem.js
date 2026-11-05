@@ -4,8 +4,7 @@
   const NS = 'http://www.w3.org/2000/svg';
   const palco = document.getElementById('palco');
   const btnVoltar = document.getElementById('voltar');
-  const legenda = document.getElementById('legenda');
-  const caixaErro = document.getElementById('erro');
+    const caixaErro = document.getElementById('erro');
 
   let C; // conteudo.json
   let cfg;
@@ -49,7 +48,7 @@
   }
 
   // ---------- construcao das cenas ----------
-  function criarCena({ imagem, areas, aoTocar }) {
+  function criarCena({ imagem, areas, aoTocar, soRotulo }) {
     const raiz = el('div', 'cena');
     const img = document.createElement('img');
     img.alt = ''; img.draggable = false;
@@ -67,6 +66,8 @@
         const r = document.createElementNS(NS, 'rect');
         r.setAttribute('x', f[0]); r.setAttribute('y', f[1]);
         r.setAttribute('width', f[2] - f[0]); r.setAttribute('height', f[3] - f[1]);
+        // nas telas de categoria a 1a forma e o nome (rotulo): so ele acende ao tocar/selecionar
+        if (soRotulo && f !== area.formas[0]) r.setAttribute('class', 'sem-destaque');
         g.appendChild(r);
       }
       if (area.pilula) { // botao visivel (acesso extra), ex.: "Conheca o HSX"
@@ -94,112 +95,54 @@
   }
   function cenaCategoria(cat, origem, zoom) {
     const objeto = { tipo: 'categoria', cat, origem, zoom, areaSel: null, el: null };
-    objeto.el = criarCena({ imagem: cat.imagem, areas: cat.areas, aoTocar: (area, g) => escolherArea(objeto, area, g) });
+    objeto.el = criarCena({ imagem: cat.imagem, areas: cat.areas, soRotulo: true, aoTocar: (area, g) => escolherArea(objeto, area, g) });
     return objeto;
   }
 
-  // ---------- respiracao suave da cena parada ----------
-  function respirar(c) {
-    if (!c.el.isConnected) return;
-    c.el.style.transformOrigin = '50% 50%';
-    c.respiro = c.el.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.018)' }],
-      { duration: 22000, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
-  }
-  function escalaAtual(c) {
-    const m = getComputedStyle(c.el).transform;
-    const v = m && m !== 'none' ? parseFloat(m.slice(m.indexOf('(') + 1)) : 1;
-    return Number.isFinite(v) && v > 0 ? v : 1;
-  }
-
-  // ---------- transicao: mergulhar no ambiente / sair dele ----------
-  // entrar: a maquete se aproxima do ponto tocado em velocidade crescente (com rastro de movimento),
-  //         um clarao e uma vinheta fecham a visao e o ambiente "se abre" a partir do mesmo ponto.
-  // voltar: o ambiente recua para o ponto e a maquete vem de um zoom grande, desacelerando ate assentar.
-  const SUAVE_SAI = 'cubic-bezier(.62,0,.9,.45)';
-  const SUAVE_ENTRA = 'cubic-bezier(.12,.8,.25,1)';
-
-  function rastros(c, qtd) {
-    // copias da imagem com atraso: viram o "borrao de movimento radial" no pico da velocidade
-    const img = c.el.querySelector('img');
-    const lista = [];
-    for (let i = 1; i <= qtd; i++) {
-      const g = el('div', 'cena fantasma');
-      g.appendChild(img.cloneNode(false));
-      g.style.zIndex = c.el.style.zIndex;
-      palco.insertBefore(g, c.el);
-      lista.push(g);
-    }
-    return lista;
-  }
-
+  // ---------- transicao com zoom (a mesma da v0.1.0) ----------
+  // 'entrar': a cena que sai cresce ate estourar e a nova "emerge" do ponto tocado.
+  // 'voltar': o inverso (a cena atual encolhe para o ponto e a anterior vem de um zoom grande).
   async function transicao(saindo, entrando, tipo, origem, zoom) {
-    const D = cfg.transicaoMs || 1700;
-    const Z = zoom;
-    const e0 = escalaAtual(saindo);
-    saindo.respiro && saindo.respiro.cancel();
-    [saindo.el, entrando.el].forEach((x) => { x.style.transformOrigin = origem; });
-    saindo.el.style.zIndex = '1';
+    const dur = cfg.transicaoMs || 1000;
+    saindo.el.style.transformOrigin = origem;
+    entrando.el.style.transformOrigin = origem;
     entrando.el.style.zIndex = '2';
+    saindo.el.style.zIndex = '1';
     entrando.el.style.opacity = '0';
     palco.appendChild(entrando.el);
 
-    const vinheta = el('div', 'vinheta'); vinheta.style.background = `radial-gradient(circle at ${origem}, transparent 22%, rgba(0,0,0,.9) 100%)`;
-    const brilho = el('div', 'brilho'); brilho.style.background = `radial-gradient(circle at ${origem}, rgba(255,214,160,.95) 0%, rgba(255,120,20,.55) 16%, rgba(255,106,0,0) 52%)`;
-    palco.append(vinheta, brilho);
-
-    const anims = [];
-    const anima = (alvo, kf, op) => { const a = alvo.animate(kf, { fill: 'both', ...op }); anims.push(a); return a; };
-    let fantasmas = [];
-
+    let kfSai; let kfEnt;
     if (tipo === 'entrar') {
-      const dSai = D * 0.72;
-      const kfSai = [
-        { transform: `scale(${e0})`, opacity: 1, filter: 'brightness(1) blur(0px)' },
-        { opacity: 1, offset: 0.55 },
-        { transform: `scale(${Z})`, opacity: 0, filter: 'brightness(1.6) blur(6px)' },
+      kfSai = [
+        { transform: 'scale(1)', opacity: 1 },
+        { transform: `scale(${(zoom * 0.6).toFixed(2)})`, opacity: 0.85, offset: 0.55 },
+        { transform: `scale(${zoom})`, opacity: 0 },
       ];
-      anima(saindo.el, kfSai, { duration: dSai, easing: SUAVE_SAI });
-      fantasmas = rastros(saindo, 3);
-      fantasmas.forEach((g, i) => {
-        g.style.transformOrigin = origem;
-        anima(g, kfSai.map((k) => (k.opacity === 1 ? { ...k, opacity: 0.4 / (i + 1) } : k)), { duration: dSai, delay: 55 * (i + 1), easing: SUAVE_SAI });
-      });
-      anima(entrando.el, [
-        // chega "de dentro": maior que o normal, desfocada e clara, e desacelera ate assentar
-        { transform: 'scale(1.3)', opacity: 0, filter: 'blur(9px) brightness(1.6)' },
-        { opacity: 1, filter: 'blur(3px) brightness(1.25)', offset: 0.3 },
-        { transform: 'scale(1)', opacity: 1, filter: 'brightness(1) blur(0px)' },
-      ], { duration: D * 0.6, delay: D * 0.4, easing: SUAVE_ENTRA });
+      kfEnt = [
+        { transform: 'scale(0.35)', opacity: 0 },
+        { transform: 'scale(0.62)', opacity: 0.55, offset: 0.5 },
+        { transform: 'scale(1)', opacity: 1 },
+      ];
     } else {
-      anima(saindo.el, [
-        { transform: `scale(${e0})`, opacity: 1, filter: 'brightness(1) blur(0px)' },
-        { opacity: 1, offset: 0.3 },
-        { transform: 'scale(.42)', opacity: 0, filter: 'brightness(1.4) blur(6px)' },
-      ], { duration: D * 0.66, easing: 'cubic-bezier(.45,0,.3,1)' });
-      const kfEnt = [
-        { transform: `scale(${(Z * 0.9).toFixed(2)})`, opacity: 0, filter: 'blur(7px) brightness(1.5)' },
-        { opacity: 1, filter: 'blur(4px) brightness(1.25)', offset: 0.3 },
-        { transform: 'scale(1)', opacity: 1, filter: 'blur(0px) brightness(1)' },
+      kfSai = [
+        { transform: 'scale(1)', opacity: 1 },
+        { transform: 'scale(0.62)', opacity: 0.55, offset: 0.5 },
+        { transform: 'scale(0.35)', opacity: 0 },
       ];
-      anima(entrando.el, kfEnt, { duration: D * 0.78, delay: D * 0.22, easing: 'cubic-bezier(.16,.78,.26,1)' });
-      fantasmas = rastros(entrando, 2);
-      fantasmas.forEach((g, i) => {
-        g.style.transformOrigin = origem;
-        anima(g, kfEnt.map((k) => (k.opacity === 1 ? { ...k, opacity: 0.28 / (i + 1) } : k)), { duration: D * 0.78, delay: D * 0.22 + 60 * (i + 1), easing: 'cubic-bezier(.16,.78,.26,1)' });
-      });
+      kfEnt = [
+        { transform: `scale(${zoom})`, opacity: 0 },
+        { transform: `scale(${(zoom * 0.6).toFixed(2)})`, opacity: 0.85, offset: 0.45 },
+        { transform: 'scale(1)', opacity: 1 },
+      ];
     }
-    const pico = tipo === 'entrar' ? 0.5 : 0.35;
-    anima(vinheta, [{ opacity: 0 }, { opacity: tipo === 'entrar' ? 0.95 : 0.8, offset: pico }, { opacity: 0 }], { duration: D, easing: 'ease-in-out' });
-    anima(brilho, [{ opacity: 0, transform: 'scale(.5)' }, { opacity: tipo === 'entrar' ? 0.8 : 0.45, transform: 'scale(1)', offset: pico + 0.08 }, { opacity: 0, transform: 'scale(1.9)' }],
-      { duration: D, easing: 'ease-out' });
-
-    await Promise.all(anims.map((a) => a.finished));
+    const opcoes = { duration: dur, easing: 'cubic-bezier(.55,.05,.25,1)', fill: 'both' };
+    const a1 = saindo.el.animate(kfSai, opcoes);
+    const a2 = entrando.el.animate(kfEnt, opcoes);
+    await Promise.all([a1.finished, a2.finished]);
     entrando.el.style.opacity = '';
     entrando.el.style.zIndex = '';
-    anims.forEach((a) => a.cancel());
-    [vinheta, brilho, ...fantasmas].forEach((x) => x.remove());
+    a2.cancel();
     saindo.el.remove();
-    respirar(entrando);
   }
 
   // ---------- navegacao ----------
@@ -226,7 +169,6 @@
     try {
       const antiga = cena;
       mostrarVoltar(false);
-      mostrarLegenda(null);
       window.mundo.navegar({ painel: null });
       await precarregar(C.menu.imagem);
       const menu = cenaMenu();
@@ -243,16 +185,11 @@
     objeto.el.querySelectorAll('.area.selecionada').forEach((x) => x.classList.remove('selecionada'));
     g.classList.add('selecionada');
     objeto.areaSel = area;
-    mostrarLegenda(area.titulo);
     window.mundo.navegar({ painel: area.painel });
     window.mundo.log(`totem: ${objeto.cat.id} / ${area.id} -> painel`);
   }
 
   function mostrarVoltar(sim) { btnVoltar.classList.toggle('visivel', sim); }
-  function mostrarLegenda(titulo) {
-    if (titulo) { legenda.innerHTML = 'No painel: <b></b>'; legenda.querySelector('b').textContent = titulo; }
-    legenda.classList.toggle('visivel', !!titulo);
-  }
 
   // ---------- anel onde o mouse/dedo toca (ajuda nos testes) ----------
   function marcarToque(ev) {
@@ -296,7 +233,6 @@
     const inicial = cenaMenu();
     palco.appendChild(inicial.el);
     cena = inicial;
-    respirar(inicial);
     window.mundo.navegar({ painel: null });
     marcarAtividade();
     window.mundo.log(`totem v${dados.versao} pronto: ${C.categorias.length} categorias`);
@@ -306,7 +242,7 @@
   window.__totem = {
     estado: () => ({ tipo: cena && cena.tipo, ocupado, cat: cena && cena.cat && cena.cat.id, sel: cena && cena.areaSel && cena.areaSel.id }),
     retanguloDa: (id) => {
-      const g = palco.querySelector(`.cena:not(.fantasma) .area[data-id="${id}"]`);
+      const g = palco.querySelector(`.cena .area[data-id="${id}"]`);
       if (!g) return null;
       const bb = g.querySelector('rect').getBoundingClientRect();
       return { x: bb.x + bb.width / 2, y: bb.y + bb.height / 2 };

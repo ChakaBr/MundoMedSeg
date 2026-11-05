@@ -28,7 +28,7 @@ const CONFIG_PADRAO = {
   // volta ao menu + logo depois de tanto tempo sem toque (0 desliga)
   ociosidadeSegundos: 90,
   // duracao do zoom entre telas do totem
-  transicaoMs: 1700,
+  transicaoMs: 1000,
   // duracao da troca de cartao no painel (saida do anterior / fade do fundo)
   painelTransicaoMs: 700,
   // anima cada cartao do painel em partes (foto, titulos, textos, icone). false = so fade

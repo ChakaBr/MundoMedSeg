@@ -45,14 +45,14 @@ const CATEGORIAS = [
     id: 'formacao-avsec', numero: 3, pasta: 'FORMAÇÃO AVSEC', titulo: 'Formação AVSEC', tela: 'FORMAÇÃO AVSEC',
     areas: [
       { id: 'matriz-celular', titulo: 'Matriz celular', led: 'Logo med+ seg na parede', formas: [[700, 150, 925, 185], [290, 210, 1170, 385]] },
-      { id: 'ci-movel', titulo: 'CI Móvel', led: 'Caminhao com logo', formas: [[40, 390, 870, 830]] },
+      { id: 'ci-movel', titulo: 'CI Móvel', led: 'Caminhao com logo', formas: [[55, 750, 235, 805], [40, 390, 870, 830]] },
       { id: 'capacitacao-continuada', titulo: 'Capacitação continuada', led: 'Capacitacao continuada', formas: [[1190, 845, 1530, 885], [880, 430, 1672, 800]] },
     ],
   },
   {
     id: 'cultura-pertencimento', numero: 4, pasta: 'CULTURA E PERTENCIMENTO', titulo: 'Cultura e Pertencimento', tela: 'CULTURA E PERTENCIMENTO',
     areas: [
-      { id: 'encontros-nacionais', titulo: 'Encontros nacionais', led: 'Encontros nacionais', formas: [[520, 120, 1075, 350], [800, 120, 1115, 170]] },
+      { id: 'encontros-nacionais', titulo: 'Encontros nacionais', led: 'Encontros nacionais', formas: [[800, 120, 1115, 170], [520, 120, 1075, 350]] },
       { id: 'reconhecimento', titulo: 'Reconhecimento', led: 'Reconhecimento em equipe', formas: [[1210, 255, 1540, 295], [1080, 285, 1480, 480]] },
       { id: 'positive-se', titulo: 'Positive-se', led: 'Positive-se', formas: [[40, 280, 250, 320], [110, 320, 640, 520]] },
       { id: 'gptw', titulo: 'GPTW', led: 'Equipe Med+ celebra', formas: [[1580, 485, 1672, 520], [1260, 440, 1672, 740]] },

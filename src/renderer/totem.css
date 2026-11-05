@@ -30,7 +30,6 @@ body.sem-cursor, body.sem-cursor * { cursor: none !important; }
 .cena {
   position: absolute; inset: 0;
   will-change: transform, opacity;
-  backface-visibility: hidden;
 }
 .cena img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -41,12 +40,6 @@ body.sem-cursor, body.sem-cursor * { cursor: none !important; }
   touch-action: manipulation;
 }
 .cena.bloqueada svg { pointer-events: none; }
-
-/* rastros de movimento, vinheta e clarao da transicao */
-.cena.fantasma { pointer-events: none; }
-.cena.fantasma img { filter: none; }
-.vinheta, .brilho { position: absolute; inset: 0; z-index: 5; pointer-events: none; will-change: opacity, transform; }
-.brilho { mix-blend-mode: screen; }
 
 /* anel que marca onde o mouse/dedo tocou (acompanhar os testes) */
 .toque {
@@ -72,12 +65,17 @@ body.sem-cursor, body.sem-cursor * { cursor: none !important; }
   fill: rgba(255, 106, 0, .28); stroke: var(--laranja-claro);
 }
 .area.selecionada rect {
-  fill: rgba(255, 106, 0, .12); stroke: var(--laranja);
+  fill: rgba(255, 106, 0, .24); stroke: var(--laranja); stroke-width: 6;
   filter: drop-shadow(0 0 10px rgba(255, 106, 0, .9));
   animation: respira 2.2s ease-in-out infinite;
 }
 @keyframes respira {
-  0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .45; }
+  0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .6; }
+}
+
+/* nas telas de categoria so o nome (1a forma) acende; o resto da area so recebe o toque */
+.area rect.sem-destaque, .area.pressionada rect.sem-destaque, .area.selecionada rect.sem-destaque {
+  fill: transparent; stroke: transparent; filter: none; animation: none;
 }
 
 /* acessos extras visiveis (ex.: "Conheca o HSX") */
@@ -112,23 +110,6 @@ body.sem-cursor, body.sem-cursor * { cursor: none !important; }
 #voltar .setas { color: var(--laranja); font-size: 1.25em; line-height: .8; }
 #voltar.visivel { opacity: 1; transform: none; pointer-events: auto; }
 #voltar:active { background: rgba(255, 106, 0, .45); }
-
-/* legenda do que esta no painel */
-#legenda {
-  position: fixed; z-index: 20; left: 50%; bottom: 2.4vh;
-  transform: translate(-50%, 14px);
-  max-width: 70vw;
-  padding: .45em 1.2em;
-  font: 500 clamp(16px, 2vh, 32px)/1.2 "Segoe UI", system-ui, sans-serif;
-  color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  background: rgba(14, 10, 8, .72);
-  border: 1px solid rgba(255, 106, 0, .8);
-  border-radius: 999px;
-  opacity: 0; transition: opacity .35s ease, transform .35s ease;
-  pointer-events: none;
-}
-#legenda b { color: var(--laranja-claro); font-weight: 600; }
-#legenda.visivel { opacity: 1; transform: translate(-50%, 0); }
 
 #erro {
   position: fixed; inset: auto 0 0 0; z-index: 99; padding: 8px 16px;

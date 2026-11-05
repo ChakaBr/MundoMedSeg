@@ -1,7 +1,7 @@
 {
   "name": "mundo-medseg",
   "productName": "MundoMedSeg",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Totem interativo (tela touch) + painel de LED - Mundo Med+ Seg",
   "main": "src/main/main.js",
   "private": true,

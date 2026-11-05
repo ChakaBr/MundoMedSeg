@@ -2,7 +2,7 @@
 
 Totem interativo (tela touch horizontal 43") + painel de LED para o *Mundo Med+ Seg*. Um computador com duas saídas de vídeo, uma janela do programa em cada tela: o toque no **totem** comanda o que aparece no **painel de LED**.
 
-Versão atual: **0.2.0** (veja `CHANGELOG.md`). Programas prontos ficam em `versoes/`.
+Versão atual: **0.3.0** (veja `CHANGELOG.md`). Programas prontos ficam em `versoes/`.
 
 ## Fluxo
 
