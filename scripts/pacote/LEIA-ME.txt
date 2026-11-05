@@ -1,0 +1,42 @@
+MUNDO MED+ SEG - Totem interativo + Painel de LED (TV vertical)
+
+COMO ABRIR
+  Duplo clique em "Abrir-MundoMedSeg.bat" (ou em MundoMedSeg.exe).
+  Abrem DUAS janelas comuns: "Totem (touch)" e "Painel LED".
+
+COLOCAR CADA JANELA NO SEU MONITOR
+  1. Arraste cada janela pela barra de titulo para o monitor desejado (tela estendida).
+  2. Clique em MAXIMIZAR (ou F11): a janela vira TELA CHEIA no monitor onde esta.
+  3. ESC sai da tela cheia (volta a ser janela). ALT+F4 fecha o programa.
+  O programa lembra a posicao e se estava em tela cheia; na proxima abertura volta igual.
+
+TECLAS (valem nas duas janelas)
+  F11 / maximizar   tela cheia no monitor atual        Esc   sai da tela cheia
+  Alt+F4            fecha o programa                   Ctrl+Shift+Q   fecha o programa
+  Ctrl+Shift+R      volta ao menu e ao logo            F12   ferramentas de depuracao
+
+COMO FUNCIONA
+  Painel (TV 65" vertical): fica no logo "Mundo Med+ Seg" ate alguem escolher algo no totem.
+  Totem: menu com as 8 areas. Ao tocar numa, a tela "mergulha" no ambiente (zoom); o painel segue no logo.
+  Dentro da area, tocar num tema mostra o cartao dele no painel: primeiro abre a foto, depois entram
+  os titulos, os textos linha a linha e o icone. Pode tocar em outro tema em seguida.
+  "voltar" (canto superior direito) sai do ambiente (zoom reverso) e o painel volta ao logo.
+  Sem toque por 90 segundos: volta sozinho ao menu + logo.
+  O cartao fica centralizado na TV; o que sobra (a TV e mais "alta" que o cartao) e preenchido com a
+  propria borda da arte, sem tarja preta.
+  Mouse e toques: o cursor do mouse fica sempre visivel e cada clique/toque no totem desenha um anel laranja.
+
+AJUSTES (config.json ao lado do .exe; criado ao mover/maximizar janelas)
+  ociosidadeSegundos  tempo sem toque para reiniciar (0 = nunca)
+  transicaoMs         duracao do zoom do totem (padrao 1700)
+  painelTransicaoMs   duracao da troca de cartao no painel (padrao 700)
+  painelAnimado       false = cartao aparece so com fade (sem animacao em partes)
+  ocultarCursor       true = esconde o cursor do mouse
+  mostrarToques       false = nao desenha o anel nos cliques
+
+ARTES E AREAS DE TOQUE
+  Pasta "conteudo": imagens + conteudo.json (areas de toque em pixels da arte de 1672x941 e qual imagem
+  cada area manda ao painel). Pode trocar as imagens mantendo o mesmo nome (a analise para a animacao
+  e refeita sozinha).
+
+Registro de eventos: mundomedseg.log (ao lado do .exe)

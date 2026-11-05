@@ -5,6 +5,6 @@ contextBridge.exposeInMainWorld('mundo', {
   navegar: (msg) => ipcRenderer.send('navegar', msg),
   pronto: (papel) => ipcRenderer.send('pronto', papel),
   log: (texto) => ipcRenderer.send('log', texto),
-  aoMostrarNoPainel: (fn) => ipcRenderer.on('painel:mostrar', (_e, imagem) => fn(imagem)),
+  aoMostrarNoPainel: (fn) => ipcRenderer.on('painel:mostrar', (_e, msg) => fn(msg)),
   aoReiniciar: (fn) => ipcRenderer.on('totem:reiniciar', () => fn()),
 });

@@ -42,6 +42,25 @@ body.sem-cursor, body.sem-cursor * { cursor: none !important; }
 }
 .cena.bloqueada svg { pointer-events: none; }
 
+/* rastros de movimento, vinheta e clarao da transicao */
+.cena.fantasma { pointer-events: none; }
+.cena.fantasma img { filter: none; }
+.vinheta, .brilho { position: absolute; inset: 0; z-index: 5; pointer-events: none; will-change: opacity, transform; }
+.brilho { mix-blend-mode: screen; }
+
+/* anel que marca onde o mouse/dedo tocou (acompanhar os testes) */
+.toque {
+  position: fixed; z-index: 60; width: 28px; height: 28px; margin: -14px 0 0 -14px;
+  border-radius: 50%; pointer-events: none;
+  border: 4px solid #ff6a00; background: rgba(255, 190, 120, .55);
+  box-shadow: 0 0 18px rgba(255, 106, 0, .9);
+  animation: toque .75s ease-out forwards;
+}
+@keyframes toque {
+  0% { transform: scale(.4); opacity: 1; }
+  100% { transform: scale(4.2); opacity: 0; }
+}
+
 /* areas de toque: invisiveis, acendem ao tocar e ficam marcadas depois de escolhidas */
 .area rect {
   fill: transparent; stroke: transparent; stroke-width: 5;
@@ -60,6 +79,18 @@ body.sem-cursor, body.sem-cursor * { cursor: none !important; }
 @keyframes respira {
   0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .45; }
 }
+
+/* acessos extras visiveis (ex.: "Conheca o HSX") */
+.area.pilula rect {
+  fill: rgba(14, 10, 8, .78); stroke: var(--laranja); stroke-width: 3;
+  rx: 40; ry: 40;
+  filter: drop-shadow(0 0 8px rgba(255, 106, 0, .6));
+}
+.area.pilula text {
+  fill: #fff; font: 600 27px "Segoe UI", system-ui, sans-serif;
+  text-anchor: middle; dominant-baseline: central; pointer-events: none;
+}
+.area.pilula.pressionada rect, .area.pilula.selecionada rect { fill: rgba(255, 106, 0, .55); }
 
 /* botao voltar */
 #voltar {

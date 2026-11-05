@@ -2,6 +2,21 @@
 
 Cada versão fica em `versoes/MundoMedSeg-vX.Y.Z/` (+ `.zip`), gerada por `npm run empacotar`.
 
+## v0.2.0 — 05/11/2026
+
+Janelas livres, painel pensado para **TV 65" na vertical** e animações seguindo a referência.
+
+- **Janelas movíveis**: as duas janelas têm moldura e podem ser arrastadas para qualquer monitor estendido. **Maximizar** (ou F11) vira **tela cheia no monitor em que a janela está**; **Esc** sai; **Alt+F4** fecha. Posição e estado ficam gravados em `config.json`.
+- **Mouse sempre visível** + **anel laranja** em cada clique/toque no totem (para acompanhar os testes). Antes o cursor era escondido.
+- **Painel em TV vertical**: o cartão (3:4) fica centralizado e o que sobra da tela é preenchido com a **borda da própria arte** esticada e suavizada (branco continua branco; foto escura continua escura), sem tarja preta.
+- **Cartão do painel anima em partes** (análise automática de cada imagem): a **foto** abre do centro com zoom e foco → os **títulos** são "escritos" da esquerda para a direita → o **texto linha a linha** → o **ícone e os fios laranja** são desenhados de cima para baixo. Cartões só de texto entram faixa a faixa. A foto segue "respirando" devagar. O logo também entra com zoom e respira. A troca entre cartões abre o novo fundo em círculo e recua o anterior.
+- **Zoom do totem refeito (entrar e sair do ambiente)**: ao tocar numa área a maquete mergulha no ponto tocado com aceleração, rastro de movimento, vinheta e clarão; o ambiente chega "de dentro", maior e desfocado, e desacelera até assentar. **Voltar** faz o inverso (o ambiente recua para o ponto e a maquete vem de um zoom grande). Cenas paradas "respiram" levemente.
+- **Safety + Security**: o cartão HSX deixou de ficar sem uso. O título "01 Safety + Security" abre o panorama e um botão visível **"Conheça o HSX"** abre o cartão HSX (Emergência e Incêndio seguem com o cartão Safety + Security; AVSEC com Formação AVSEC).
+- **Ícone padrão Alyce** no `.exe`, na janela e na barra de tarefas.
+- Teste automático com 20 verificações (inclui maximizar/Esc, cursor, anel, partes do cartão, preenchimento) e modo `--quadros`, que pausa as animações e fotografa instantes exatos.
+
+**Não validado**: TV 65" real, tela touch real, dois monitores físicos (testado com um monitor; maximizar/Esc testados no monitor único).
+
 ## v0.1.0 — 03/11/2026
 
 Primeira versão: totem touch + painel de LED, seguindo o vídeo de referência.

@@ -2,33 +2,29 @@ html, body {
   margin: 0; width: 100%; height: 100%;
   background: #000; overflow: hidden;
   user-select: none; -webkit-user-select: none;
-  cursor: none;
   font-family: "Segoe UI", system-ui, sans-serif;
 }
+body.sem-cursor, body.sem-cursor * { cursor: none !important; }
 
 #painel { position: absolute; inset: 0; overflow: hidden; background: #000; }
 
-/* cada imagem vive numa camada: fundo desfocado (preenche) + imagem nitida por cima */
-.camada {
-  position: absolute; inset: 0;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
+/* uma "cena" = fundo na cor da arte (preenche o que a imagem nao cobre) + o cartao centralizado */
+.cena { position: absolute; inset: 0; overflow: hidden; will-change: opacity, transform; }
+.cena .fundo { position: absolute; inset: 0; }
+.cartao { position: absolute; }
+.borda { position: absolute; overflow: hidden; display: none; }
+.borda img { position: absolute; display: block; max-width: none; max-height: none; pointer-events: none; }
+
+/* o cartao e montado em partes (fatias da mesma imagem) que entram uma a uma */
+.parte { position: absolute; overflow: hidden; will-change: clip-path, opacity, transform; }
+.parte img {
+  position: absolute; display: block; max-width: none; max-height: none;
+  pointer-events: none; -webkit-user-drag: none;
+  will-change: transform, filter;
 }
-.camada .fundo {
-  position: absolute; inset: -6%;
-  width: 112%; height: 112%;
-  object-fit: cover;
-  filter: blur(38px) brightness(.55) saturate(1.1);
-}
-.camada .frente {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: contain;
-}
-.camada.cobrir .frente { object-fit: cover; }
-.camada.cobrir .fundo { display: none; }
 
 #erro {
   position: fixed; inset: auto 0 0 0; padding: 8px 16px;
   font: 14px/1.4 Consolas, monospace; color: #fff; background: #b00020;
-  display: none; white-space: pre-wrap;
+  display: none; white-space: pre-wrap; z-index: 9;
 }

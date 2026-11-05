@@ -1,7 +1,22 @@
 {
   "name": "mundo-medseg",
   "productName": "MundoMedSeg",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Totem interativo (tela touch) + painel de LED - Mundo Med+ Seg",
-  "main": "src/main/main.js"
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --janela",
+    "gerar-conteudo": "node scripts/gerar-conteudo.js",
+    "empacotar": "node scripts/empacotar.js",
+    "testar": "electron . --autoteste=teste-resultado"
+  },
+  "devDependencies": {
+    "electron": "^45.2.1",
+    "rcedit": "^5.0.2"
+  },
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  }
 }

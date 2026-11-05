@@ -197,6 +197,33 @@
             ]
           ],
           "painel": "safety-security/led-03-formacao-avsec-que-fortalece-equipes.png"
+        },
+        {
+          "id": "panorama",
+          "titulo": "Safety + Security",
+          "formas": [
+            [
+              30,
+              30,
+              780,
+              165
+            ]
+          ],
+          "painel": "safety-security/led-04-painel-corporativo-de-seguranca-aeroportuaria.png"
+        },
+        {
+          "id": "conheca-hsx",
+          "titulo": "Conheça o HSX",
+          "formas": [
+            [
+              40,
+              862,
+              360,
+              917
+            ]
+          ],
+          "pilula": "Conheça o HSX",
+          "painel": "safety-security/led-05-hsx-seguranca-que-acolhe-pessoas.png"
         }
       ]
     },
