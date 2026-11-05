@@ -1,0 +1,34 @@
+MUNDO MED+ SEG - Totem interativo + Painel de LED
+
+COMO ABRIR
+  Duplo clique em "Abrir-MundoMedSeg.bat".
+  - Com 2 monitores: o totem (tela touch) abre em tela cheia em um e o painel de LED no outro.
+  - Com 1 monitor: abre duas janelas lado a lado (modo teste).
+  "Abrir-Modo-Janela.bat" forca o modo janelas mesmo com 2 monitores.
+
+TECLAS DO OPERADOR (valem nas duas janelas)
+  Ctrl+Shift+S   troca as telas (o que estava no totem vai pro painel e vice-versa; fica salvo)
+  Ctrl+Shift+R   volta ao menu e ao logo
+  Ctrl+Shift+Q   encerra o programa
+  F12            ferramentas de depuracao
+  Ou rode "Fechar-MundoMedSeg.bat".
+
+COMO FUNCIONA
+  Painel de LED: fica no logo "Mundo Med+ Seg" enquanto ninguem escolhe nada.
+  Totem: menu com as 8 areas. Ao tocar numa, a tela faz zoom e abre a area; o painel continua no logo.
+  Dentro da area, tocar num tema mostra a arte dele no painel de LED (pode tocar em outros em seguida).
+  "voltar" (canto superior direito) leva ao menu e o painel volta ao logo.
+  Sem toque por 90 segundos: volta sozinho ao menu + logo.
+
+AJUSTES (arquivo config.json ao lado do .exe, criado ao trocar as telas)
+  ociosidadeSegundos   tempo sem toque para reiniciar (0 = nunca)
+  transicaoMs          duracao do zoom no totem
+  painelTransicaoMs    duracao da troca no painel
+  painelAjuste         "contain" (imagem inteira) ou "cover" (preenche cortando)
+  telas                {"totem": <id do monitor>, "painel": <id do monitor>} - os ids aparecem em mundomedseg.log
+
+ARTES E AREAS DE TOQUE
+  Pasta "conteudo": as imagens e o arquivo conteudo.json (areas de toque em pixels da arte de 1672x941,
+  e qual imagem cada area manda ao painel). Pode trocar as imagens mantendo o mesmo nome.
+
+Registro de eventos: mundomedseg.log (ao lado do .exe)

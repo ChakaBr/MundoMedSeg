@@ -1,0 +1,34 @@
+html, body {
+  margin: 0; width: 100%; height: 100%;
+  background: #000; overflow: hidden;
+  user-select: none; -webkit-user-select: none;
+  cursor: none;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+#painel { position: absolute; inset: 0; overflow: hidden; background: #000; }
+
+/* cada imagem vive numa camada: fundo desfocado (preenche) + imagem nitida por cima */
+.camada {
+  position: absolute; inset: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.camada .fundo {
+  position: absolute; inset: -6%;
+  width: 112%; height: 112%;
+  object-fit: cover;
+  filter: blur(38px) brightness(.55) saturate(1.1);
+}
+.camada .frente {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain;
+}
+.camada.cobrir .frente { object-fit: cover; }
+.camada.cobrir .fundo { display: none; }
+
+#erro {
+  position: fixed; inset: auto 0 0 0; padding: 8px 16px;
+  font: 14px/1.4 Consolas, monospace; color: #fff; background: #b00020;
+  display: none; white-space: pre-wrap;
+}

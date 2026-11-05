@@ -1,0 +1,6 @@
+node_modules/
+versoes/
+config.json
+*.log
+teste-resultado/
+conteudo/analise-cache.json

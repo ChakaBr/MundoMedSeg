@@ -1,0 +1,106 @@
+:root {
+  --laranja: #ff6a00;
+  --laranja-claro: #ffa24d;
+  --fundo: #000;
+  --razao: 1672 / 941; /* proporcao das artes (16:9) */
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0; width: 100%; height: 100%;
+  background: var(--fundo);
+  overflow: hidden;
+  user-select: none; -webkit-user-select: none;
+  touch-action: none;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+body.sem-cursor, body.sem-cursor * { cursor: none !important; }
+
+/* O palco e a caixa 16:9 centralizada onde as artes vivem; o zoom fica recortado nela. */
+#palco {
+  position: absolute; left: 50%; top: 50%;
+  width: min(100vw, calc(100vh * 1672 / 941));
+  aspect-ratio: var(--razao);
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: #0b0b0b;
+}
+
+.cena {
+  position: absolute; inset: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.cena img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; pointer-events: none; -webkit-user-drag: none;
+}
+.cena svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  touch-action: manipulation;
+}
+.cena.bloqueada svg { pointer-events: none; }
+
+/* areas de toque: invisiveis, acendem ao tocar e ficam marcadas depois de escolhidas */
+.area rect {
+  fill: transparent; stroke: transparent; stroke-width: 5;
+  pointer-events: all; cursor: pointer;
+  rx: 18; ry: 18;
+  transition: fill .12s, stroke .12s;
+}
+.area.pressionada rect {
+  fill: rgba(255, 106, 0, .28); stroke: var(--laranja-claro);
+}
+.area.selecionada rect {
+  fill: rgba(255, 106, 0, .12); stroke: var(--laranja);
+  filter: drop-shadow(0 0 10px rgba(255, 106, 0, .9));
+  animation: respira 2.2s ease-in-out infinite;
+}
+@keyframes respira {
+  0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .45; }
+}
+
+/* botao voltar */
+#voltar {
+  position: fixed; z-index: 20;
+  top: 2.2vh; right: 2vw;
+  display: flex; align-items: center; gap: .5em;
+  padding: .55em 1.3em .6em;
+  font: 600 clamp(22px, 2.9vh, 46px)/1 "Segoe UI", system-ui, sans-serif;
+  color: #fff; letter-spacing: .02em;
+  background: rgba(14, 10, 8, .72);
+  border: 2px solid var(--laranja);
+  border-radius: 999px;
+  box-shadow: 0 0 22px rgba(255, 106, 0, .45), inset 0 0 14px rgba(255, 106, 0, .18);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; transform: translateY(-14px) scale(.96); pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease, background .12s;
+  touch-action: manipulation;
+}
+#voltar .setas { color: var(--laranja); font-size: 1.25em; line-height: .8; }
+#voltar.visivel { opacity: 1; transform: none; pointer-events: auto; }
+#voltar:active { background: rgba(255, 106, 0, .45); }
+
+/* legenda do que esta no painel */
+#legenda {
+  position: fixed; z-index: 20; left: 50%; bottom: 2.4vh;
+  transform: translate(-50%, 14px);
+  max-width: 70vw;
+  padding: .45em 1.2em;
+  font: 500 clamp(16px, 2vh, 32px)/1.2 "Segoe UI", system-ui, sans-serif;
+  color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  background: rgba(14, 10, 8, .72);
+  border: 1px solid rgba(255, 106, 0, .8);
+  border-radius: 999px;
+  opacity: 0; transition: opacity .35s ease, transform .35s ease;
+  pointer-events: none;
+}
+#legenda b { color: var(--laranja-claro); font-weight: 600; }
+#legenda.visivel { opacity: 1; transform: translate(-50%, 0); }
+
+#erro {
+  position: fixed; inset: auto 0 0 0; z-index: 99; padding: 8px 16px;
+  font: 14px/1.4 Consolas, monospace; color: #fff; background: #b00020;
+  display: none; white-space: pre-wrap;
+}
