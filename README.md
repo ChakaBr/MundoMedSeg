@@ -1,8 +1,8 @@
-# MundoMedSeg
+# MundoMedSeg (Totem 01)
 
 Totem interativo (tela touch horizontal 43") + painel de LED para o *Mundo Med+ Seg*. Um computador com duas saídas de vídeo, uma janela do programa em cada tela: o toque no **totem** comanda o que aparece no **painel de LED**.
 
-Versão atual: **0.3.0** (veja `CHANGELOG.md`). Programas prontos ficam em `versoes/`.
+Versão atual: **1.0.0** (veja `CHANGELOG.md`). Programas prontos ficam em `versoes/`.
 
 ## Fluxo
 
@@ -26,7 +26,7 @@ npm install
 npm start                # abre as duas janelas (arraste para os monitores e maximize)
 npm run dev              # igual, ignora o estado de tela cheia gravado
 npm run testar           # teste ponta a ponta com capturas (pasta passada em --autoteste=)
-npm run gerar-conteudo   # regenera conteudo/ a partir de ../MED+ SEG
+npm run gerar-conteudo   # regenera conteudo/ a partir de ../TOTEM 01 - Mundo Med Seg
 npm run empacotar        # cria versoes/MundoMedSeg-vX.Y.Z (+ .zip)
 ```
 

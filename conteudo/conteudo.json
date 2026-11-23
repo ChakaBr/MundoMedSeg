@@ -147,83 +147,56 @@
           "formas": [
             [
               60,
-              320,
-              320,
+              318,
+              310,
               352
             ],
             [
               0,
-              380,
+              375,
               700,
-              700
+              870
             ]
           ],
-          "painel": "safety-security/led-01-painel-corporativo-de-seguranca-aeroportuaria.png"
+          "painel": "safety-security/led-01-emergencia-medica.png"
         },
         {
           "id": "combate-incendio",
           "titulo": "Combate ao incêndio",
           "formas": [
             [
-              550,
+              548,
               220,
-              820,
+              812,
               252
             ],
             [
-              580,
+              575,
               270,
-              1500,
-              500
+              1510,
+              495
             ]
           ],
-          "painel": "safety-security/led-02-painel-corporativo-de-seguranca-aeroportuaria.png"
+          "painel": "safety-security/led-02-combate-incendio.png"
         },
         {
           "id": "avsec",
           "titulo": "AVSEC",
           "formas": [
             [
-              1500,
-              540,
-              1672,
-              572
+              1503,
+              538,
+              1612,
+              568
             ],
             [
-              700,
-              500,
+              705,
+              495,
               1672,
-              850
+              880
             ]
           ],
-          "painel": "safety-security/led-03-formacao-avsec-que-fortalece-equipes.png"
-        },
-        {
-          "id": "panorama",
-          "titulo": "Safety + Security",
-          "formas": [
-            [
-              30,
-              30,
-              780,
-              165
-            ]
-          ],
-          "painel": "safety-security/led-04-painel-corporativo-de-seguranca-aeroportuaria.png"
-        },
-        {
-          "id": "conheca-hsx",
-          "titulo": "Conheça o HSX",
-          "formas": [
-            [
-              40,
-              862,
-              360,
-              917
-            ]
-          ],
-          "pilula": "Conheça o HSX",
-          "painel": "safety-security/led-05-hsx-seguranca-que-acolhe-pessoas.png"
+          "painel": "safety-security/led-03-avsec.png"
         }
       ]
     },
@@ -250,7 +223,7 @@
               730
             ]
           ],
-          "painel": "hsx/led-01-comunicacao-empatica-na-inspecao-aeroportuaria-1.png"
+          "painel": "hsx/led-01-comunicacao-empatica.png"
         },
         {
           "id": "acolhimento-acessibilidade",
@@ -269,7 +242,7 @@
               680
             ]
           ],
-          "painel": "hsx/led-02-acolhimento-e-acessibilidade-2.png"
+          "painel": "hsx/led-02-acolhimento-acessibilidade.png"
         },
         {
           "id": "rigor-procedimentos",
@@ -288,7 +261,7 @@
               700
             ]
           ],
-          "painel": "hsx/led-03-rigor-e-acolhimento-na-inspecao-aeroportuaria.png"
+          "painel": "hsx/led-03-rigor-procedimentos.png"
         }
       ]
     },
@@ -315,7 +288,7 @@
               385
             ]
           ],
-          "painel": "formacao-avsec/led-01-logo-med-seg-na-parede-preta.png"
+          "painel": "formacao-avsec/led-01-matriz-celular.png"
         },
         {
           "id": "ci-movel",
@@ -334,7 +307,7 @@
               830
             ]
           ],
-          "painel": "formacao-avsec/led-02-caminhao-com-logo-med-seg.png"
+          "painel": "formacao-avsec/led-02-ci-movel.png"
         },
         {
           "id": "capacitacao-continuada",
@@ -353,7 +326,7 @@
               800
             ]
           ],
-          "painel": "formacao-avsec/led-03-capacitacao-continuada-corporativa.png"
+          "painel": "formacao-avsec/led-03-capacitacao-continuada.png"
         }
       ]
     },
@@ -380,7 +353,7 @@
               350
             ]
           ],
-          "painel": "cultura-pertencimento/led-01-encontros-nacionais-em-equipe-1.png"
+          "painel": "cultura-pertencimento/led-01-encontros-nacionais.png"
         },
         {
           "id": "reconhecimento",
@@ -399,7 +372,7 @@
               480
             ]
           ],
-          "painel": "cultura-pertencimento/led-02-reconhecimento-em-equipe-e-inovacao-2.png"
+          "painel": "cultura-pertencimento/led-02-reconhecimento.png"
         },
         {
           "id": "positive-se",
@@ -418,7 +391,7 @@
               520
             ]
           ],
-          "painel": "cultura-pertencimento/led-03-positive-se-cuidado-e-acolhimento-em-equipe-3.png"
+          "painel": "cultura-pertencimento/led-03-positive-se.png"
         },
         {
           "id": "gptw",
@@ -437,7 +410,7 @@
               740
             ]
           ],
-          "painel": "cultura-pertencimento/led-04-equipe-med-celebra-o-reconhecimento-4.png"
+          "painel": "cultura-pertencimento/led-04-gptw.png"
         },
         {
           "id": "premiacoes",
@@ -456,7 +429,7 @@
               720
             ]
           ],
-          "painel": "cultura-pertencimento/led-05-premiacoes-med-seg-em-destaque-5.png"
+          "painel": "cultura-pertencimento/led-05-premiacoes.png"
         },
         {
           "id": "onboarding",
@@ -475,7 +448,7 @@
               790
             ]
           ],
-          "painel": "cultura-pertencimento/led-06-onboarding-e-kit-de-boas-vindas-6.png"
+          "painel": "cultura-pertencimento/led-06-onboarding.png"
         }
       ]
     },
@@ -502,7 +475,7 @@
               760
             ]
           ],
-          "painel": "descompressao/led-01-espaco-de-descanso-e-recuperacao-2.png"
+          "painel": "descompressao/led-01-descanso-recuperacao.png"
         },
         {
           "id": "convivencia-acolhimento",
@@ -521,7 +494,7 @@
               740
             ]
           ],
-          "painel": "descompressao/led-02-convivencia-e-acolhimento-1.png"
+          "painel": "descompressao/led-02-convivencia-acolhimento.png"
         },
         {
           "id": "pausa-recarregar",
@@ -540,7 +513,7 @@
               690
             ]
           ],
-          "painel": "descompressao/led-03-pausa-para-recarregar-3.png"
+          "painel": "descompressao/led-03-pausa-recarregar.png"
         }
       ]
     },
@@ -567,7 +540,7 @@
               620
             ]
           ],
-          "painel": "tecnologia-indicadores/led-01-avaliacao-da-experiencia-2.png"
+          "painel": "tecnologia-indicadores/led-01-avaliacao-experiencia.png"
         },
         {
           "id": "gamificacao-hsx",
@@ -586,7 +559,7 @@
               830
             ]
           ],
-          "painel": "tecnologia-indicadores/led-02-gamificacao-hsx-no-aeroporto-1.png"
+          "painel": "tecnologia-indicadores/led-02-gamificacao-hsx.png"
         },
         {
           "id": "nps",
@@ -605,7 +578,7 @@
               690
             ]
           ],
-          "painel": "tecnologia-indicadores/led-03-nps-e-experiencia-do-passageiro-5.png"
+          "painel": "tecnologia-indicadores/led-03-nps.png"
         },
         {
           "id": "conformidade",
@@ -624,7 +597,7 @@
               530
             ]
           ],
-          "painel": "tecnologia-indicadores/led-04-conformidade-na-seguranca-aeroportuaria-4.png"
+          "painel": "tecnologia-indicadores/led-04-conformidade.png"
         },
         {
           "id": "retencao",
@@ -643,7 +616,7 @@
               880
             ]
           ],
-          "painel": "tecnologia-indicadores/led-05-retencao-e-pertencimento-em-equipe-3.png"
+          "painel": "tecnologia-indicadores/led-05-retencao.png"
         }
       ]
     },
@@ -670,7 +643,7 @@
               800
             ]
           ],
-          "painel": "impacto-social/led-01-desenvolvimento-profissional-no-aeroporto-1.png"
+          "painel": "impacto-social/led-01-desenvolvimento-profissional.png"
         },
         {
           "id": "formacao-subsidiada",
@@ -695,7 +668,7 @@
               640
             ]
           ],
-          "painel": "impacto-social/led-02-formacao-subsidiada-para-profissionais-avsec-3.png"
+          "painel": "impacto-social/led-02-formacao-subsidiada.png"
         },
         {
           "id": "oportunidades",
@@ -720,7 +693,7 @@
               340
             ]
           ],
-          "painel": "impacto-social/led-03-oportunidades-na-seguranca-aeroportuaria-2.png"
+          "painel": "impacto-social/led-03-oportunidades.png"
         }
       ]
     },
@@ -759,7 +732,7 @@
               345
             ]
           ],
-          "painel": "escala-conexao/led-01-rede-nacional-de-cis-em-expansao-3.png"
+          "painel": "escala-conexao/led-01-rede-nacional-cis.png"
         },
         {
           "id": "parcerias-institucionais",
@@ -778,7 +751,7 @@
               700
             ]
           ],
-          "painel": "escala-conexao/led-02-parcerias-institucionais-no-ambiente-aeroportuario-2.png"
+          "painel": "escala-conexao/led-02-parcerias-institucionais.png"
         },
         {
           "id": "comunicacao-estrategica",
@@ -797,7 +770,7 @@
               800
             ]
           ],
-          "painel": "escala-conexao/led-03-comunicacao-estrategica-1.png"
+          "painel": "escala-conexao/led-03-comunicacao-estrategica.png"
         }
       ]
     }

@@ -1,4 +1,4 @@
-// Gera conteudo/ a partir da pasta de artes "MED+ SEG":
+// Gera conteudo/ a partir da pasta de artes "TOTEM 01 - Mundo Med Seg":
 //  - copia as imagens com nomes sem acento/espaco
 //  - escreve conteudo/conteudo.json (menu, categorias, areas de toque, imagens do painel LED)
 //
@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 const RAIZ = path.resolve(__dirname, '..');
-const ORIGEM = path.resolve(process.argv[2] || path.join(RAIZ, '..', 'MED+ SEG'));
+const ORIGEM = path.resolve(process.argv[2] || path.join(RAIZ, '..', 'TOTEM 01 - Mundo Med Seg'));
 const DESTINO = path.join(RAIZ, 'conteudo');
 
 const LARGURA = 1672;
@@ -22,15 +22,13 @@ const ALTURA = 941;
 // "arquivo" casa por prefixo (normalizado, sem acento) do nome do arquivo na pasta.
 const CATEGORIAS = [
   {
-    id: 'safety-security', numero: 1, pasta: 'SAFETY SECURITY', titulo: 'Safety + Security',
-    tela: 'SAFETY SECURITY',
+    // tela 01 CORRIGIDA: cada botao tem o seu proprio cartao (Emergencia, Incendio, AVSEC)
+    id: 'safety-security', numero: 1, pasta: 'CORRIGIDO - SAFETY SECURITY', titulo: 'Safety + Security',
+    tela: 'Tela 01',
     areas: [
-      { id: 'emergencia-medica', titulo: 'Emergência médica', led: 'Painel corporativo', formas: [[60, 320, 320, 352], [0, 380, 700, 700]] },
-      { id: 'combate-incendio', titulo: 'Combate ao incêndio', led: 'Painel corporativo', formas: [[550, 220, 820, 252], [580, 270, 1500, 500]] },
-      { id: 'avsec', titulo: 'AVSEC', led: 'Formacao AVSEC que', formas: [[1500, 540, 1672, 572], [700, 500, 1672, 850]] },
-      // acessos extras: tocar no titulo da tela mostra o panorama; o botao visivel leva ao cartao HSX
-      { id: 'panorama', titulo: 'Safety + Security', led: 'Painel corporativo', formas: [[30, 30, 780, 165]] },
-      { id: 'conheca-hsx', titulo: 'Conheça o HSX', led: 'HSX_ seguranca', pilula: 'Conheça o HSX', formas: [[40, 862, 360, 917]] },
+      { id: 'emergencia-medica', titulo: 'Emergência médica', led: 'Emerge', formas: [[60, 318, 310, 352], [0, 375, 700, 870]] },
+      { id: 'combate-incendio', titulo: 'Combate ao incêndio', led: 'Combate ao Ince', formas: [[548, 220, 812, 252], [575, 270, 1510, 495]] },
+      { id: 'avsec', titulo: 'AVSEC', led: 'Seguranc', formas: [[1503, 538, 1612, 568], [705, 495, 1672, 880]] },
     ],
   },
   {
@@ -114,6 +112,12 @@ function norm(s) {
 function slug(s) {
   return norm(s).replace(/\.png$/i, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
+function acharPasta(raiz, nome) {
+  const alvo = norm(nome);
+  const achadas = fs.readdirSync(raiz).filter((d) => norm(d) === alvo && fs.statSync(path.join(raiz, d)).isDirectory());
+  if (achadas.length !== 1) throw new Error(`pasta "${nome}" em ${raiz}: ${achadas.length} casam`);
+  return path.join(raiz, achadas[0]);
+}
 function listar(dir) {
   return fs.readdirSync(dir).filter((f) => /\.png$/i.test(f));
 }
@@ -140,19 +144,18 @@ function main() {
   fs.rmSync(DESTINO, { recursive: true, force: true });
   fs.mkdirSync(DESTINO, { recursive: true });
 
-  const arquivosOrigem = (nome) => path.join(ORIGEM, nome);
-  const logo = copiar(arquivosOrigem('ENTRADA LOGO.png'), 'led/entrada-logo.png');
-  const menuImg = copiar(arquivosOrigem('ENTRADA 1.png'), 'menu/entrada-1.png');
+  const logo = copiar(path.join(ORIGEM, acharArquivo(ORIGEM, 'ENTRADA LOGO')), 'led/entrada-logo.png');
+  const menuImg = copiar(path.join(ORIGEM, acharArquivo(ORIGEM, 'ENTRADA 1')), 'menu/entrada-1.png');
 
   const usadas = new Set();
   const categorias = CATEGORIAS.map((cat) => {
-    const dir = path.join(ORIGEM, cat.pasta);
+    const dir = acharPasta(ORIGEM, cat.pasta);
     const telaArq = acharArquivo(dir, cat.tela);
     const imagem = copiar(path.join(dir, telaArq), `${cat.id}/tela.png`);
     const areas = cat.areas.map((a, i) => {
       const arq = acharArquivo(dir, a.led);
       usadas.add(path.join(cat.pasta, arq));
-      const ledImg = copiar(path.join(dir, arq), `${cat.id}/led-${String(i + 1).padStart(2, '0')}-${slug(arq)}.png`);
+      const ledImg = copiar(path.join(dir, arq), `${cat.id}/led-${String(i + 1).padStart(2, '0')}-${a.id}.png`);
       return { id: a.id, titulo: a.titulo, formas: a.formas, ...(a.pilula ? { pilula: a.pilula } : {}), painel: ledImg };
     });
     usadas.add(path.join(cat.pasta, telaArq));
@@ -167,7 +170,7 @@ function main() {
   // avisa as imagens do painel que sobraram sem botao
   const sobras = [];
   for (const cat of CATEGORIAS) {
-    for (const f of listar(path.join(ORIGEM, cat.pasta))) {
+    for (const f of listar(acharPasta(ORIGEM, cat.pasta))) {
       if (!usadas.has(path.join(cat.pasta, f))) sobras.push(`${cat.pasta}/${f}`);
     }
   }

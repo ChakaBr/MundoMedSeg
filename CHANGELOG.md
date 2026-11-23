@@ -2,6 +2,14 @@
 
 Cada versão fica em `versoes/MundoMedSeg-vX.Y.Z/` (+ `.zip`), gerada por `npm run empacotar`.
 
+## v1.0.0 — 23/11/2026 (versão final para montagem)
+
+- **Tela 01 (Safety + Security) corrigida** com as artes da pasta `CORRIGIDO - SAFETY SECURITY`: *Emergência médica*, *Combate ao incêndio* e *AVSEC* agora mostram cada um o seu cartão no painel ("Emergência Médica", "Combate ao Incêndio", "Segurança AVSEC com acolhimento"). Antes havia cartões de outros temas com nomes trocados.
+- Removidos os acessos extras que existiam só por causa do erro (título "Safety + Security" abrindo o panorama e botão "Conheça o HSX"); o cartão HSX continua na tela 02 (HSX).
+- Gerador de conteúdo passa a ler a pasta `TOTEM 01 - Mundo Med Seg` (aceita nomes de arquivo vindos do Mac). Cartões do painel têm nomes limpos (`led-NN-<id>.png`).
+- Teste automático com 22 verificações (uma por botão da tela 01).
+- Mesmo motor do **MundoMedMais v1.0.0** (Totem 02).
+
 ## v0.3.0 — 05/11/2026
 
 Ajustes pedidos depois de testar a v0.2.0.

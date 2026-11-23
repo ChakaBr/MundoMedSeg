@@ -110,20 +110,18 @@ async function rodar({ app, janelas, pasta, log }) {
     const rel3 = await esperarCondicao('__painel.atual()', painel, (x) => /entrada-logo/.test(x), 4000);
     confere('painel volta ao logo', /entrada-logo/.test(rel3), rel3);
 
-    // 6) Safety: botao "Conheca o HSX" leva ao cartao HSX
+    // 6) Safety + Security (tela 01 corrigida): cada botao mostra o seu cartao
     const p4 = await js(totem, '__totem.retanguloDa("safety-security")');
     await clicar(p4.x, p4.y);
     await esperarCondicao('__totem.estado()', totem, (e) => e.tipo === 'categoria' && !e.ocupado, 5000);
     await espera(300);
-    const p5 = await js(totem, '__totem.retanguloDa("conheca-hsx")');
-    await clicar(p5.x, p5.y);
-    const rel4 = await esperarCondicao('__painel.atual()', painel, (x) => /hsx-seguranca/.test(x), 4000);
-    confere('Safety: botao Conheca o HSX mostra o cartao HSX', /hsx-seguranca/.test(rel4), rel4);
-    await espera(900); await foto('08-safety');
-    const p6 = await js(totem, '__totem.retanguloDa("emergencia-medica")');
-    await clicar(p6.x, p6.y);
-    const rel5 = await esperarCondicao('__painel.atual()', painel, (x) => /painel-corporativo/.test(x), 4000);
-    confere('Safety: Emergencia medica mostra o cartao Safety + Security', /painel-corporativo/.test(rel5), rel5);
+    for (const [id, rx, nome] of [['emergencia-medica', /emergencia-medica/, 'Emergencia medica'], ['combate-incendio', /combate-incendio/, 'Combate ao incendio'], ['avsec', /avsec/, 'AVSEC']]) {
+      const pt = await js(totem, `__totem.retanguloDa("${id}")`);
+      await clicar(pt.x, pt.y);
+      const rel4 = await esperarCondicao('__painel.atual()', painel, (x) => rx.test(x), 4000);
+      confere(`Safety: ${nome} mostra o cartao ${nome}`, rx.test(rel4), rel4);
+      await espera(900); await foto(`08-safety-${id}`);
+    }
 
     // 6b) quadros exatos (animacoes pausadas): mergulho, saida e entrada de cartao no painel
     if (process.argv.some((a) => a === '--quadros')) {
