@@ -2,6 +2,10 @@
 
 Cada versão fica em `versoes/MundoMedSeg-vX.Y.Z/` (+ `.zip`), gerada por `npm run empacotar`.
 
+## v1.0.1 — 23/11/2026
+
+- **Tela inicial do painel (TV vertical) com a nova arte já na vertical** (9:16): ocupa a TV inteira, sem faixas laterais. Arte original em `MundoMedSeg.jpeg` / `MundoMedMais.jpeg`, convertida para PNG ao lado das demais artes (`ENTRADA LOGO VERTICAL.png` no Totem 01 e `Logo/Logo vertical.png` no Totem 02) e lida pelo gerador de conteúdo.
+
 ## v1.0.0 — 23/11/2026 (versão final para montagem)
 
 - **Tela 01 (Safety + Security) corrigida** com as artes da pasta `CORRIGIDO - SAFETY SECURITY`: *Emergência médica*, *Combate ao incêndio* e *AVSEC* agora mostram cada um o seu cartão no painel ("Emergência Médica", "Combate ao Incêndio", "Segurança AVSEC com acolhimento"). Antes havia cartões de outros temas com nomes trocados.

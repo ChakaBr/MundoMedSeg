@@ -144,7 +144,7 @@ function main() {
   fs.rmSync(DESTINO, { recursive: true, force: true });
   fs.mkdirSync(DESTINO, { recursive: true });
 
-  const logo = copiar(path.join(ORIGEM, acharArquivo(ORIGEM, 'ENTRADA LOGO')), 'led/entrada-logo.png');
+  const logo = copiar(path.join(ORIGEM, acharArquivo(ORIGEM, 'ENTRADA LOGO VERTICAL')), 'led/entrada-logo.png');
   const menuImg = copiar(path.join(ORIGEM, acharArquivo(ORIGEM, 'ENTRADA 1')), 'menu/entrada-1.png');
 
   const usadas = new Set();
